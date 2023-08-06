@@ -20,23 +20,51 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"xu-liyi.github.io","root":"/hexo_blog/","images":"/hexo_blog/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/hexo_blog/js/config.js"></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Entropy">
-<meta property="og:url" content="https://xu-liyi.github.io/hexo_blog/index.html">
+    <meta name="description" content="10 Recurrent Neural Networks 处理序列相关的数据类型，如Image Captioning：image -&gt; sequence of words 非序列数据的顺序，如分类和生成。 RNN到底是什么？接收输入x，内部隐藏态(internal hidden state)会在每次读取新的输入时更新，每一个时间步，都会有一个输出。 (Vanilla) Recurrent N">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS231N笔记-下">
+<meta property="og:url" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/index.html">
 <meta property="og:site_name" content="Entropy">
+<meta property="og:description" content="10 Recurrent Neural Networks 处理序列相关的数据类型，如Image Captioning：image -&gt; sequence of words 非序列数据的顺序，如分类和生成。 RNN到底是什么？接收输入x，内部隐藏态(internal hidden state)会在每次读取新的输入时更新，每一个时间步，都会有一个输出。 (Vanilla) Recurrent N">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230726151554029.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230726194934257.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230726200453494.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230726203437451.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230726213326934.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230726210019443.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230726214038472.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230727101411346.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230727103650503.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230727175723039.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230727201506622.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230727204646166.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230727211159481.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230727213058949.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230727213457036.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230727213627047.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230728091654535.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230730161012468.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230730162624787.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230730171552564.png">
+<meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230730184126993.png">
+<meta property="article:published_time" content="2023-08-06T07:06:57.048Z">
+<meta property="article:modified_time" content="2023-08-06T07:18:10.156Z">
 <meta property="article:author" content="xu liyi">
+<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/image-20230726151554029.png">
 
 
-<link rel="canonical" href="https://xu-liyi.github.io/hexo_blog/">
+<link rel="canonical" href="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"en","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/","path":"2023/08/06/CS231N-2/","title":"CS231N笔记-下"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Entropy</title>
+<title>CS231N笔记-下 | Entropy</title>
   
 
 
@@ -181,7 +209,7 @@ mjx-container[display="true"] + br {
 
     <a href="/hexo_blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Entropy</h1>
+      <p class="site-title">Entropy</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -207,7 +235,7 @@ mjx-container[display="true"] + br {
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -220,6 +248,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#10-Recurrent-Neural-Networks"><span class="nav-number">1.</span> <span class="nav-text">10 Recurrent Neural Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vanilla-Recurrent-Neural-Network"><span class="nav-number">1.1.</span> <span class="nav-text">(Vanilla) Recurrent Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%A9%E7%9F%AD%E7%9A%84%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD-Truncated-Backpropagation-through"><span class="nav-number">1.1.1.</span> <span class="nav-text">缩短的反向传播(Truncated Backpropagation through)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E6%A0%87%E6%B3%A8%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">图像标注模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-Attention"><span class="nav-number">1.2.1.</span> <span class="nav-text">注意力机制(Attention)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%B1%82%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">1.3.</span> <span class="nav-text">多层循环神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E6%B5%81%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98-Vanilla-RNN-Gradient-Flow"><span class="nav-number">1.4.</span> <span class="nav-text">梯度流出现的问题(Vanilla RNN Gradient Flow)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1%E5%92%8C%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8"><span class="nav-number">1.4.1.</span> <span class="nav-text">梯度消失和梯度爆炸</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Long-Short-Term-Memory-LSTM"><span class="nav-number">1.5.</span> <span class="nav-text">Long Short Term Memory(LSTM)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LSTM%E6%A2%AF%E5%BA%A6%E6%B5%81"><span class="nav-number">1.5.1.</span> <span class="nav-text">LSTM梯度流</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-Detection-and-Segmentation"><span class="nav-number">2.</span> <span class="nav-text">11 Detection and Segmentation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2-Semantic-Segmentation"><span class="nav-number">2.1.</span> <span class="nav-text">语义分割(Semantic Segmentation)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3-Sliding-Window"><span class="nav-number">2.1.1.</span> <span class="nav-text">滑动窗口(Sliding Window)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%8D%B7%E7%A7%AF-Fully-Convolutional"><span class="nav-number">2.1.2.</span> <span class="nav-text">全卷积(Fully Convolutional)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Classification-Localization-%E5%88%86%E7%B1%BB-%E5%AE%9A%E4%BD%8D"><span class="nav-number">2.2.</span> <span class="nav-text">Classification+Localization(分类+定位)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-Detection-%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">2.3.</span> <span class="nav-text">Object Detection(目标检测)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3-Sliding-Window-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">滑动窗口(Sliding Window)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%99%E9%80%89%E5%8C%BA%E5%9F%9F-Region-Proposals"><span class="nav-number">2.3.2.</span> <span class="nav-text">候选区域(Region Proposals)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%80%99%E9%80%89%E5%8C%BA%E5%9F%9F%E7%9A%84%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95%EF%BC%9AYOLO-SSD"><span class="nav-number">2.4.</span> <span class="nav-text">不使用候选区域的检测方法：YOLO&#x2F;SSD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#YOLO"><span class="nav-number">2.4.1.</span> <span class="nav-text">YOLO</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Instance-Segmentation-%E7%89%A9%E4%BD%93%E5%88%86%E5%89%B2"><span class="nav-number">2.5.</span> <span class="nav-text">Instance Segmentation(物体分割)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mask-R-CNN"><span class="nav-number">2.5.1.</span> <span class="nav-text">Mask R-CNN</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-Visualizing-and-Understanding"><span class="nav-number">3.</span> <span class="nav-text">12 Visualizing and Understanding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#First-Layer-Visualize-Filters"><span class="nav-number">3.1.</span> <span class="nav-text">First Layer: Visualize Filters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Last-Layer-Nearest-Neighbors"><span class="nav-number">3.2.</span> <span class="nav-text">Last Layer: Nearest Neighbors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maximally-Activating-Paches"><span class="nav-number">3.3.</span> <span class="nav-text">Maximally Activating Paches</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%AE%E6%8C%A1%E5%AE%9E%E9%AA%8C-Occlusion-Experiments"><span class="nav-number">3.4.</span> <span class="nav-text">遮挡实验(Occlusion Experiments)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Saliency-Maps-%E6%98%BE%E8%91%97%E5%9B%BE"><span class="nav-number">3.5.</span> <span class="nav-text">Saliency Maps(显著图)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#guided-backprop-%E5%BC%95%E5%AF%BC%E5%BC%8F%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">3.6.</span> <span class="nav-text">guided backprop(引导式反向传播)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-Ascent"><span class="nav-number">3.7.</span> <span class="nav-text">Gradient Ascent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fooling-Images"><span class="nav-number">3.8.</span> <span class="nav-text">Fooling Images</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepDream-Amplify-existing-features"><span class="nav-number">3.9.</span> <span class="nav-text">DeepDream: Amplify existing features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E5%8F%8D%E6%BC%94-Feature-Inversion"><span class="nav-number">3.10.</span> <span class="nav-text">特征反演(Feature Inversion)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%B9%E7%90%86%E5%90%88%E6%88%90-Texture-Synthesis"><span class="nav-number">3.11.</span> <span class="nav-text">纹理合成(Texture Synthesis)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BA%B9%E7%90%86%E7%94%9F%E6%88%90-Neural-Texture-Synthesis-Gram-Matrix"><span class="nav-number">3.11.1.</span> <span class="nav-text">网络纹理生成(Neural Texture Synthesis): Gram Matrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Neural-Style-Transfer"><span class="nav-number">3.11.2.</span> <span class="nav-text">Neural Style Transfer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fast-Style-Transfer"><span class="nav-number">3.11.3.</span> <span class="nav-text">Fast Style Transfer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-Generative-Models"><span class="nav-number">4.</span> <span class="nav-text">13 Generative Models</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0-Unsupervised-Learning"><span class="nav-number">4.1.</span> <span class="nav-text">无监督学习(Unsupervised Learning)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.1.1.</span> <span class="nav-text">生成模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E5%88%86%E7%B1%BB"><span class="nav-number">4.2.</span> <span class="nav-text">生成模型分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pixel-RNN-CNN"><span class="nav-number">4.3.</span> <span class="nav-text">Pixel RNN&#x2F;CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PixelRNN"><span class="nav-number">4.3.1.</span> <span class="nav-text">PixelRNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PixelCNN"><span class="nav-number">4.3.2.</span> <span class="nav-text">PixelCNN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Variational-Autoencoder-VAE"><span class="nav-number">4.4.</span> <span class="nav-text">Variational Autoencoder(VAE)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Autoencoders"><span class="nav-number">4.4.1.</span> <span class="nav-text">Autoencoders</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Variational-Autoencoder"><span class="nav-number">4.4.2.</span> <span class="nav-text">Variational  Autoencoder</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generative-Adversarial-Networks-GAN"><span class="nav-number">4.5.</span> <span class="nav-text">Generative Adversarial Networks(GAN)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-GANs-Two-player-game"><span class="nav-number">4.5.1.</span> <span class="nav-text">Training GANs: Two-player game</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#14-Deep-Reinforcement-Learning"><span class="nav-number">5.</span> <span class="nav-text">14 Deep Reinforcement Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B-Markov-Decision-Process"><span class="nav-number">5.1.</span> <span class="nav-text">马尔可夫决策过程(Markov Decision Process)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-learning"><span class="nav-number">5.1.1.</span> <span class="nav-text">Q-learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Policy-Gradients"><span class="nav-number">5.1.2.</span> <span class="nav-text">Policy Gradients</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#15-Efficient-Methods-and-Hardware-for-Deep-Learning"><span class="nav-number">6.</span> <span class="nav-text">15 Efficient Methods and Hardware for Deep Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E6%95%88%E6%8E%A8%E6%96%AD%E7%AE%97%E6%B3%95-Algorithms-for-Efficient-Inference"><span class="nav-number">6.1.</span> <span class="nav-text">高效推断算法(Algorithms for Efficient Inference)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pruning-%E5%89%AA%E6%9E%9D"><span class="nav-number">6.1.1.</span> <span class="nav-text">Pruning(剪枝)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%83%E5%80%BC%E5%85%B1%E4%BA%AB-weight-sharing"><span class="nav-number">6.1.2.</span> <span class="nav-text">权值共享(weight sharing)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quantization-%E9%87%8F%E5%8C%96"><span class="nav-number">6.1.3.</span> <span class="nav-text">Quantization(量化)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8E%E7%A7%A9%E8%BF%91%E4%BC%BC-Low-Rank-Approximation"><span class="nav-number">6.1.4.</span> <span class="nav-text">低秩近似(Low Rank Approximation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Binary-Ternary-Net-Motivation"><span class="nav-number">6.1.5.</span> <span class="nav-text">Binary&#x2F;Ternary Net: Motivation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Winograd-Transformation"><span class="nav-number">6.1.6.</span> <span class="nav-text">Winograd Transformation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E6%95%88%E6%8E%A8%E6%96%AD%E7%A1%AC%E4%BB%B6-Hardware-for-Efficient-Inference"><span class="nav-number">6.2.</span> <span class="nav-text">高效推断硬件(Hardware for Efficient Inference)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E6%95%88%E8%AE%AD%E7%BB%83%E7%AE%97%E6%B3%95-Algorithms-for-Efficient-Training"><span class="nav-number">6.3.</span> <span class="nav-text">高效训练算法(Algorithms for Efficient Training)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E5%8C%96-Parallelization"><span class="nav-number">6.3.1.</span> <span class="nav-text">并行化(Parallelization)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6%E8%AE%AD%E7%BB%83-Mixed-Precision-with-FP16-and-FP32"><span class="nav-number">6.3.2.</span> <span class="nav-text">混合精度训练(Mixed Precision with FP16 and FP32)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E7%B2%BE%E9%A6%8F-Model-Distillation"><span class="nav-number">6.3.3.</span> <span class="nav-text">模型精馏(Model Distillation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86-%E7%96%8F-%E5%AF%86%E8%AE%AD%E7%BB%83-Dende-Sparse-Dense-training-DSD"><span class="nav-number">6.3.4.</span> <span class="nav-text">密-疏-密训练(Dende-Sparse-Dense training, DSD)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E6%95%88%E8%AE%AD%E7%BB%83%E7%A1%AC%E4%BB%B6-Hardware-for-Efficient-Training"><span class="nav-number">6.4.</span> <span class="nav-text">高效训练硬件(Hardware for Efficient Training)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GPUs-for-Training"><span class="nav-number">6.4.1.</span> <span class="nav-text">GPUs for Training</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#16-Adversarial-Examples-and-Adversarial-Training"><span class="nav-number">7.</span> <span class="nav-text">16 Adversarial Examples and Adversarial Training</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -254,16 +283,17 @@ mjx-container[display="true"] + br {
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="https://xu-liyi.github.io/hexo_blog/2023/08/06/CS231N-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -277,13 +307,13 @@ mjx-container[display="true"] + br {
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Entropy">
+      <meta itemprop="name" content="CS231N笔记-下 | Entropy">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/hexo_blog/2023/08/06/CS231N-2/" class="post-title-link" itemprop="url">CS231N笔记-下</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          CS231N笔记-下
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -306,8 +336,7 @@ mjx-container[display="true"] + br {
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="10-Recurrent-Neural-Networks"><a href="#10-Recurrent-Neural-Networks" class="headerlink" title="10 Recurrent Neural Networks"></a>10 Recurrent Neural Networks</h1><p> 处理序列相关的数据类型，如Image Captioning：image -&gt; sequence of words</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="10-Recurrent-Neural-Networks"><a href="#10-Recurrent-Neural-Networks" class="headerlink" title="10 Recurrent Neural Networks"></a>10 Recurrent Neural Networks</h1><p> 处理序列相关的数据类型，如Image Captioning：image -&gt; sequence of words</p>
 <p>非序列数据的顺序，如分类和生成。</p>
 <p>RNN到底是什么？接收输入x，内部隐藏态(internal hidden state)会在每次读取新的输入时更新，每一个时间步，都会有一个输出。<br><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="16.997ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 7512.7 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(609,-150) scale(0.707)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><g data-mml-node="mo" transform="translate(1192,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msub" transform="translate(2247.8,0)"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mi" transform="translate(523,-150) scale(0.707)"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g></g><g data-mml-node="mo" transform="translate(3561.9,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msub" transform="translate(3950.9,0)"><g data-mml-node="mi"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="TeXAtom" transform="translate(609,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(361,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1139,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g><g data-mml-node="mo" transform="translate(5768.8,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="msub" transform="translate(6213.5,0)"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mi" transform="translate(605,-150) scale(0.707)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><g data-mml-node="mo" transform="translate(7123.7,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></p>
 <h2 id="Vanilla-Recurrent-Neural-Network"><a href="#Vanilla-Recurrent-Neural-Network" class="headerlink" title="(Vanilla) Recurrent Neural Network"></a>(Vanilla) Recurrent Neural Network</h2><p><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.667ex;" xmlns="http://www.w3.org/2000/svg" width="40.192ex" height="2.364ex" role="img" focusable="false" viewBox="0 -750 17764.7 1045"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(609,-150) scale(0.707)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><g data-mml-node="mo" transform="translate(1192,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(2247.8,0)"><path data-c="74" d="M27 422Q80 426 109 478T141 600V615H181V431H316V385H181V241Q182 116 182 100T189 68Q203 29 238 29Q282 29 292 100Q293 108 293 146V181H333V146V134Q333 57 291 17Q264 -10 221 -10Q187 -10 162 2T124 33T105 68T98 100Q97 107 97 248V385H18V422H27Z"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(389,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(889,0)"></path><path data-c="68" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 124T102 167T103 217T103 272T103 329Q103 366 103 407T103 482T102 542T102 586T102 603Q99 622 88 628T43 637H25V660Q25 683 27 683L37 684Q47 685 66 686T103 688Q120 689 140 690T170 693T181 694H184V367Q244 442 328 442Q451 442 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(1445,0)"></path></g><g data-mml-node="mo" transform="translate(4248.8,0)"><path data-c="2061" d=""></path></g><g data-mml-node="mo" transform="translate(4248.8,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msub" transform="translate(4637.8,0)"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g><g data-mml-node="TeXAtom" transform="translate(977,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(576,0)"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g></g></g><g data-mml-node="msub" transform="translate(6479.4,0)"><g data-mml-node="mi"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="TeXAtom" transform="translate(609,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(361,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1139,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g><g data-mml-node="mo" transform="translate(8519.6,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="msub" transform="translate(9519.8,0)"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g><g data-mml-node="TeXAtom" transform="translate(977,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mi" transform="translate(572,0)"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g></g></g><g data-mml-node="msub" transform="translate(11358.6,0)"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mi" transform="translate(605,-150) scale(0.707)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><g data-mml-node="mo" transform="translate(12268.8,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mtext" transform="translate(12657.8,0)"><path data-c="A0" d=""></path></g><g data-mml-node="msub" transform="translate(12907.8,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(523,-150) scale(0.707)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><g data-mml-node="mo" transform="translate(14013.9,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msub" transform="translate(15069.6,0)"><g data-mml-node="mi"><path data-c="1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path></g><g data-mml-node="TeXAtom" transform="translate(977,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(576,0)"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g></g><g data-mml-node="msub" transform="translate(16850.4,0)"><g data-mml-node="mi"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(609,-150) scale(0.707)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g></g></g></svg></mjx-container></p>
@@ -618,7 +647,6 @@ mjx-container[display="true"] + br {
 <p>TPU</p>
 <h1 id="16-Adversarial-Examples-and-Adversarial-Training"><a href="#16-Adversarial-Examples-and-Adversarial-Training" class="headerlink" title="16 Adversarial Examples and Adversarial Training"></a>16 Adversarial Examples and Adversarial Training</h1><p>暂时不用</p>
 
-      
     </div>
 
     
@@ -626,175 +654,26 @@ mjx-container[display="true"] + br {
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+          <div class="post-tags">
+              <a href="/hexo_blog/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"># 计算机视觉</a>
+              <a href="/hexo_blog/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://xu-liyi.github.io/hexo_blog/2023/08/01/CS231N-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/hexo_blog/images/avatar.gif">
-      <meta itemprop="name" content="xu liyi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Entropy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Entropy">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/hexo_blog/2023/08/01/CS231N-1/" class="post-title-link" itemprop="url">CS231N笔记-上</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2023-08-01 13:20:59 / Modified: 14:40:23" itemprop="dateCreated datePublished" datetime="2023-08-01T13:20:59+08:00">2023-08-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="1-Introduction-to-CNN"><a href="#1-Introduction-to-CNN" class="headerlink" title="1 Introduction to CNN"></a>1 Introduction to CNN</h1><h2 id="吹水-生物进化出视觉的小故事"><a href="#吹水-生物进化出视觉的小故事" class="headerlink" title="吹水+生物进化出视觉的小故事"></a>吹水+生物进化出视觉的小故事</h2><p>略</p>
-<h2 id="计算机视觉发展历程"><a href="#计算机视觉发展历程" class="headerlink" title="计算机视觉发展历程"></a>计算机视觉发展历程</h2><p>关于视觉的第一篇博士论文：Block world (Larry Roberts, 1963)</p>
-<p>视觉世界被简化为简单的几何形状，目标是能识别并重建这些形状</p>
-<p>1966年：麻省理工“夏季视觉项目”，有效构建了视觉系统的重要部分</p>
-<p>1970s：David Marr: MIT视觉科学家，写了一本书《VISION》，关于视觉是什么以及我们应该如何进行计算机视觉研究和开发使计算机可以识别视觉世界的算法。</p>
-<p>主要思想：为了拍照并最终获得视觉世界的完整整体3d表示，我们必须经历几个过程：一是所谓的原始草图(primal sketch)，包括边缘(edges)、条形(bars)、虚拟线(virtual lines)、曲线(curves)、边界(boundaries)，很大程度上受神经学家启发，视觉早期阶段与处理边缘之类的简单结构有很大关系。之后是所谓的2.5D草图(two-and-a-half-D-sketch)，我们开始将表面、深度信息、层次或视觉场景的不连续性拼凑在一起。最终拼凑的结果即是3D模型(根据表面和体积图元等分层组织)</p>
-<p>评价：这是关于视觉是什么非常理想的思考过程，这种思维方式几十年来一直主导着计算机视觉</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/hexo_blog/2023/08/01/CS231N-1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/hexo_blog/2023/08/01/CS231N-1/" rel="prev" title="CS231N笔记-上">
+                  <i class="fa fa-chevron-left"></i> CS231N笔记-上
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://xu-liyi.github.io/hexo_blog/2023/07/31/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/hexo_blog/images/avatar.gif">
-      <meta itemprop="name" content="xu liyi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Entropy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Entropy">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/hexo_blog/2023/07/31/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2023-07-31 20:26:25" itemprop="dateCreated datePublished" datetime="2023-07-31T20:26:25+08:00">2023-07-31</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 

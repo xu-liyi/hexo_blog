@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"xu-liyi.github.io","root":"/hexo_blog/","images":"/hexo_blog/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/hexo_blog/js/config.js"></script>
 
-    <meta name="description" content="图像成像 针孔透视 15世纪初，Brunelleschi提出透视投影模型。数学模型非常简单，且对成像过程模拟程度可以接受。  如图，将针孔对准光源，可以在半透明板上看到颠倒的蜡烛图像。假设针孔缩小为一点，就只有唯一一条光线穿过三个点：成像平面的一点、针孔、景物的一点。 透视投影产生颠倒图像，设想一个虚拟图像更为方便，即上图虚线部分，虚拟图像离针孔的距离等于成像平面离针孔的距离。">
+    <meta name="description" content="图像成像 针孔透视 15世纪初，Brunelleschi提出透视投影模型。数学模型非常简单，且对成像过程模拟程度可以接受。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="摄像机的几何模型">
+<meta property="og:title" content="计算机视觉——摄像机的几何模型">
 <meta property="og:url" content="https://xu-liyi.github.io/hexo_blog/2023/09/09/%E6%91%84%E5%83%8F%E6%9C%BA%E7%9A%84%E5%87%A0%E4%BD%95%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Entropy">
-<meta property="og:description" content="图像成像 针孔透视 15世纪初，Brunelleschi提出透视投影模型。数学模型非常简单，且对成像过程模拟程度可以接受。  如图，将针孔对准光源，可以在半透明板上看到颠倒的蜡烛图像。假设针孔缩小为一点，就只有唯一一条光线穿过三个点：成像平面的一点、针孔、景物的一点。 透视投影产生颠倒图像，设想一个虚拟图像更为方便，即上图虚线部分，虚拟图像离针孔的距离等于成像平面离针孔的距离。">
+<meta property="og:description" content="图像成像 针孔透视 15世纪初，Brunelleschi提出透视投影模型。数学模型非常简单，且对成像过程模拟程度可以接受。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/09/09/%E6%91%84%E5%83%8F%E6%9C%BA%E7%9A%84%E5%87%A0%E4%BD%95%E6%A8%A1%E5%9E%8B/image-20230908163154885.png">
 <meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/09/09/%E6%91%84%E5%83%8F%E6%9C%BA%E7%9A%84%E5%87%A0%E4%BD%95%E6%A8%A1%E5%9E%8B/image-20230908191347310.png">
@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/09/09/%E6%91%84%E5%83%8F%E6%9C%BA%E7%9A%84%E5%87%A0%E4%BD%95%E6%A8%A1%E5%9E%8B/image-20230909185834738.png">
 <meta property="og:image" content="https://xu-liyi.github.io/hexo_blog/2023/09/09/%E6%91%84%E5%83%8F%E6%9C%BA%E7%9A%84%E5%87%A0%E4%BD%95%E6%A8%A1%E5%9E%8B/image-20230909190726630.png">
 <meta property="article:published_time" content="2023-09-09T15:47:02.713Z">
-<meta property="article:modified_time" content="2023-09-10T02:00:20.207Z">
+<meta property="article:modified_time" content="2023-09-10T02:15:50.172Z">
 <meta property="article:author" content="xu liyi">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
@@ -50,10 +50,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://xu-liyi.github.io/hexo_blog/2023/09/09/%E6%91%84%E5%83%8F%E6%9C%BA%E7%9A%84%E5%87%A0%E4%BD%95%E6%A8%A1%E5%9E%8B/","path":"2023/09/09/摄像机的几何模型/","title":"摄像机的几何模型"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://xu-liyi.github.io/hexo_blog/2023/09/09/%E6%91%84%E5%83%8F%E6%9C%BA%E7%9A%84%E5%87%A0%E4%BD%95%E6%A8%A1%E5%9E%8B/","path":"2023/09/09/摄像机的几何模型/","title":"计算机视觉——摄像机的几何模型"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>摄像机的几何模型 | Entropy</title>
+<title>计算机视觉——摄像机的几何模型 | Entropy</title>
   
 
 
@@ -296,12 +296,12 @@ mjx-container[display="true"] + br {
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="摄像机的几何模型 | Entropy">
+      <meta itemprop="name" content="计算机视觉——摄像机的几何模型 | Entropy">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          摄像机的几何模型
+          计算机视觉——摄像机的几何模型
         </h1>
 
         <div class="post-meta-container">
@@ -319,7 +319,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-09-10 10:00:20" itemprop="dateModified" datetime="2023-09-10T10:00:20+08:00">2023-09-10</time>
+      <time title="Modified: 2023-09-10 10:15:50" itemprop="dateModified" datetime="2023-09-10T10:15:50+08:00">2023-09-10</time>
     </span>
 
   
@@ -334,10 +334,10 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody"><h2 id="图像成像">图像成像</h2>
 <h3 id="针孔透视">针孔透视</h3>
 <p>15世纪初，Brunelleschi提出透视投影模型。数学模型非常简单，且对成像过程模拟程度可以接受。</p>
+<span id="more"></span>
 <p><img src="image-20230908163154885.png" alt="image-20230908163154885"></p>
 <p>如图，将针孔对准光源，可以在半透明板上看到颠倒的蜡烛图像。假设针孔缩小为一点，就只有唯一一条光线穿过三个点：成像平面的一点、针孔、景物的一点。</p>
 <p>透视投影产生颠倒图像，设想一个虚拟图像更为方便，即上图虚线部分，虚拟图像离针孔的距离等于成像平面离针孔的距离。</p>
-<span id="more"></span>
 <p>透视投影有两个明显效果：</p>
 <ol type="1">
 <li>所观察到的物体大小取决于它们的距离</li>
@@ -465,8 +465,8 @@ mjx-container[display="true"] + br {
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/hexo_blog/2023/09/07/BooksManager/" rel="prev" title="Java Web项目—图书管理系统">
-                  <i class="fa fa-chevron-left"></i> Java Web项目—图书管理系统
+                <a href="/hexo_blog/2023/09/07/BooksManager/" rel="prev" title="Java Web项目——图书管理系统">
+                  <i class="fa fa-chevron-left"></i> Java Web项目——图书管理系统
                 </a>
             </div>
             <div class="post-nav-item">
